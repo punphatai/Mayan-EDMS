@@ -16,50 +16,65 @@ from .events import event_theme_created, event_theme_edited
 from colorful.fields import RGBColorField
 
 class Theme(ExtraDataModelMixin, models.Model):
+    #All font
+    font_list = [('Arial','Arial'),('Verdana','Verdana'),('Helvetica','Helvetica'),('Tahoma','Tahoma'),
+    ('Trebuchet MS','Trebuchet MS'),('Times New Roman','Times New Roman'),('Georgia','Georgia'),
+    ('Garamond','Garamond'),('Courier New','Courier New'),('Brush Script MT','Brush Script Mt'),]
+
     label = models.CharField(
         db_index=True, help_text=_('A short text describing the theme.'),
         max_length=128, unique=True, verbose_name=_('Label')
     )
+    # add logo with link
+    logo = models.CharField(
+        db_index=True, help_text=_('Change Logo Website.'),
+        max_length=128, unique=True, verbose_name=_('Logo')
+    )
+    font = models.CharField(
+        db_index=True, help_text=_('Change Font'),
+        max_length=128, unique=True, verbose_name=_('Font'),
+        choices = font_list
+    )
     #add color code to model
     bg_Main_Menu = RGBColorField(
-        help_text=_('The RGB color values for main menu background color.'),
-        verbose_name=_('Background color main menu.')
+        help_text=_('RGB color value for main menu background.'),
+        verbose_name=_('Background main menu')
     )
     bg_Main_Menu_at = RGBColorField(
-        help_text=_('The RGB color values for active of main menu top bar.'),
-        verbose_name=_('Active color main menu')
+        help_text=_('RGB color values for main menu when active or hover.'),
+        verbose_name=_('Second color background main menu')
     )
     ct_bg_color = RGBColorField(
-        help_text=_('The RGB color values for background content color.'),
-        verbose_name=_('Content background color')
+        help_text=_('RGB color values for background content box.'),
+        verbose_name=_('Content box background')
     )
     sc_bt_button = RGBColorField(
-        help_text=_('The RGB color values for second button.'),
-        verbose_name=_('Second background button')
+        help_text=_('RGB color values for second button.'),
+        verbose_name=_('Second button background')
     )
     tx_main = RGBColorField(
-        help_text=_('The RGB color values for main text.'),
+        help_text=_('RGB color values for main text.'),
         verbose_name=_('Main text color')
     )
     bg_bd = RGBColorField(
-        help_text=_('The RGB color values for background body.'),
-        verbose_name=_('Background body color')
+        help_text=_('RGB color values for background body.'),
+        verbose_name=_('Background body')
     )
     sc_tx_color = RGBColorField(
-        help_text=_('The RGB color values for second text.'),
-        verbose_name=_('Second text body color')
+        help_text=_('RGB color values for second text.'),
+        verbose_name=_('Second text color')
     )
     hl_color = RGBColorField(
-        help_text=_('The RGB color values for highlight.'),
+        help_text=_('The RGB color values for highlight or when hover menu top bar.'),
         verbose_name=_('Highlight color')
     )
     tx_menu = RGBColorField(
-        help_text=_('The RGB color values for menu text color.'),
+        help_text=_('RGB color values for text in list of menu.'),
         verbose_name=_('Menu text color')
     )
     dd_menu = RGBColorField(
-        help_text=_('The RGB color values for drop down text menu.'),
-        verbose_name=_('Drop down menu text color')
+        help_text=_('RGB color values for text in drop down menu.'),
+        verbose_name=_('Drop down menu text')
     )
     stylesheet = models.TextField(
         blank=True, help_text=_(
@@ -105,8 +120,10 @@ class Theme(ExtraDataModelMixin, models.Model):
         hl_color = self.hl_color
         tx_menu = self.tx_menu
         dd_menu = self.dd_menu
+        logo = self.logo
+        font = self.font
         css = f"""
-        .navbar.navbar-default.navbar-fixed-top{{
+        .navbar.navbar-default.navbar-fixed-top, .panel-primary .panel-heading{{
             background: {bg_Main_Menu};
         }}
         #menu-main {{
@@ -157,7 +174,7 @@ class Theme(ExtraDataModelMixin, models.Model):
         #accordion-sidebar  .panel  div  .panel-body  ul  li:active {{
             background: {bg_Main_Menu_at};
         }}
-        .btn-block:hover, .btn-block:active{{
+        .btn-block:hover, .btn-block:focus{{
             background-color: {bg_Main_Menu_at};
         }}
         #accordion-sidebar .panel-heading:hover {{
@@ -165,6 +182,9 @@ class Theme(ExtraDataModelMixin, models.Model):
             transition: .1s ease;
         }}
         .input-group-btn a.btn-primary{{
+            background: {bg_Main_Menu_at};
+        }}
+        #sidebar ul.list-group > li a:hover{{
             background: {bg_Main_Menu_at};
         }}
         .well, .well div.panel-footer{{
@@ -177,22 +197,33 @@ class Theme(ExtraDataModelMixin, models.Model):
             color: {tx_main};
         }}
         body, .well.center-block tr td,.pull-right.btn-group.open ul, .form-control, .navbar.navbar-default.navbar-fixed-top .dropdown-menu, .well div.panel-body,.panel-primary .panel-body, .well .panel-secondary > .panel-heading,#sidebar ul.list-group > li a{{
-          background:{bg_bd};  
+          background: {bg_bd};  
         }}
         .well p.help-block{{
             color: {sc_tx_color};
         }}
         .well a:not(.btn), .navbar.navbar-default.navbar-fixed-top #navbar > ul > li > a:hover{{
-            color:{hl_color};
+            color: {hl_color};
         }}
         .navbar.navbar-default.navbar-fixed-top #navbar > ul > li > a,.navbar.navbar-default.navbar-fixed-top #navbar > li > a,#accordion-sidebar  .panel  div  .panel-body  ul  li a, #accordion-sidebar  .panel-title, .btn,.well .panel-primary .panel-heading span{{
-            color:{tx_menu};
+            color: {tx_menu};
         }}
         .well .panel-primary .panel-heading span{{
-            color:{tx_menu} !important;
+            color: {tx_menu} !important;
         }}
         #sidebar ul.list-group > li.dropdown-header, #sidebar ul.list-group > li a,.navbar.navbar-default.navbar-fixed-top .dropdown-menu li a{{
-            color:{dd_menu};
+            color: {dd_menu};
+        }}
+        *{{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+        }}
+        img.web-logo{{
+            background-image: url("{logo}");
+            background-size: 150px;
+            background-repeat: no-repeat;
+        }}
+        *{{
+            font-family: '{font}', sans-serif !important;
         }}
         """
         self.stylesheet = css
@@ -219,7 +250,7 @@ class UserThemeSetting(models.Model):
     def __str__(self):
         return force_text(s=self.user)
 
-# add CurrentTheme to ref all theme
+# Create CurrentTheme to make all page same theme
 class CurrentTheme(models.Model):
     theme = models.ForeignKey(
         blank=True, null=True, on_delete=models.CASCADE,

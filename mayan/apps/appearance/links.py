@@ -24,7 +24,7 @@ link_current_user_theme_settings_edit = Link(
 
 link_theme_create = Link(
     icon=icon_theme_create, permissions=(permission_theme_create,),
-    text=_('Create new theme'), view='appearance:theme_create'
+    text=_('Create new logo and theme'), view='appearance:theme_create'
 )
 link_theme_delete = Link(
     args='object.pk', icon=icon_theme_delete,
@@ -37,10 +37,10 @@ link_theme_edit = Link(
     view='appearance:theme_edit'
 )
 link_theme_list = Link(
-    icon=icon_theme_list, text=_('Themes'),
+    icon=icon_theme_list, text=_('Logo & Themes'),
     view='appearance:theme_list'
 )
 link_theme_setup = Link(
     icon=icon_theme_setup, permissions=(permission_theme_create,),
-    text=_('Themes'), view='appearance:theme_list'
+    text=_('Logo & Themes'), view='appearance:theme_list'
 )

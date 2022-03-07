@@ -18,7 +18,7 @@ class UserThemeSettingAdmin(admin.ModelAdmin):
         'user__email', 'theme__label',
     )
 
-#CurrentTheme
+#add CurrentTheme to admin
 @admin.register(CurrentTheme)
 class CurrentThemeAdmin(admin.ModelAdmin):
     list_display = ('theme',) 

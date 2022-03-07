@@ -94,7 +94,7 @@ class ThemeEditView(SingleObjectEditView):
     def get_extra_context(self):
         return {
             'object': self.object,
-            'title': _('Edit theme: %s') % self.object
+            'title': _('Edit logo and theme: %s') % self.object
         }
 
     def get_instance_extra_data(self):
@@ -120,5 +120,5 @@ class ThemeListView(SingleObjectListView):
             'no_results_title': _(
                 'There are no themes'
             ),
-            'title': _('Themes'),
+            'title': _('Logo and Themes'),
         }
