@@ -15,11 +15,10 @@ from .events import event_theme_created, event_theme_edited
 #import RGBColorFie to create GUI select color
 from colorful.fields import RGBColorField
 
+#import all font list of google font
+from .all_list_font import font_list
+
 class Theme(ExtraDataModelMixin, models.Model):
-    #All font
-    font_list = [('Arial','Arial'),('Verdana','Verdana'),('Helvetica','Helvetica'),('Tahoma','Tahoma'),
-    ('Trebuchet MS','Trebuchet MS'),('Times New Roman','Times New Roman'),('Georgia','Georgia'),
-    ('Garamond','Garamond'),('Courier New','Courier New'),('Brush Script MT','Brush Script Mt'),]
 
     label = models.CharField(
         db_index=True, help_text=_('A short text describing the theme.'),
@@ -28,7 +27,7 @@ class Theme(ExtraDataModelMixin, models.Model):
     # add logo with link
     logo = models.CharField(
         db_index=True, help_text=_('Change Logo Website.'),
-        max_length=128, unique=True, verbose_name=_('Logo')
+        max_length=300, unique=True, verbose_name=_('Logo')
     )
     font = models.CharField(
         db_index=True, help_text=_('Change Font'),
@@ -197,12 +196,15 @@ class Theme(ExtraDataModelMixin, models.Model):
             color: {tx_main};
         }}
         body, .well.center-block tr td,.pull-right.btn-group.open ul, .form-control, .navbar.navbar-default.navbar-fixed-top .dropdown-menu, .well div.panel-body,.panel-primary .panel-body, .well .panel-secondary > .panel-heading,#sidebar ul.list-group > li a{{
-          background: {bg_bd};  
+            background: {bg_bd};  
+        }}
+        .navbar.navbar-default.navbar-fixed-top .dropdown-menu li a:hover{{
+            color: {bg_bd};
         }}
         .well p.help-block{{
             color: {sc_tx_color};
         }}
-        .well a:not(.btn), .navbar.navbar-default.navbar-fixed-top #navbar > ul > li > a:hover{{
+        .well a:not(.btn), .navbar.navbar-default.navbar-fixed-top #navbar > ul > li > a:hover, .navbar.navbar-default.navbar-fixed-top #navbar > ul > li.open > a[aria-expanded="true"]{{
             color: {hl_color};
         }}
         .navbar.navbar-default.navbar-fixed-top #navbar > ul > li > a,.navbar.navbar-default.navbar-fixed-top #navbar > li > a,#accordion-sidebar  .panel  div  .panel-body  ul  li a, #accordion-sidebar  .panel-title, .btn,.well .panel-primary .panel-heading span{{
@@ -214,9 +216,7 @@ class Theme(ExtraDataModelMixin, models.Model):
         #sidebar ul.list-group > li.dropdown-header, #sidebar ul.list-group > li a,.navbar.navbar-default.navbar-fixed-top .dropdown-menu li a{{
             color: {dd_menu};
         }}
-        *{{
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
-        }}
+
         img.web-logo{{
             background-image: url("{logo}");
             background-size: 150px;

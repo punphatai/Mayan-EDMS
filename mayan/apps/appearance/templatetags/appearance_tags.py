@@ -70,7 +70,7 @@ def appearance_get_form_media_js(form):
 def appearance_get_icon(icon_path):
     return import_string(dotted_path=icon_path).render()
 
-
+#set Theme to Current Theme that admin set
 @register.simple_tag
 def appearance_get_user_theme_stylesheet(user):
     CurrentTheme = apps.get_model(
@@ -97,6 +97,17 @@ def appearance_get_user_theme_stylesheet(user):
 
     # return ''
 
+@register.simple_tag
+def get_fonts():
+    CurrentTheme = apps.get_model(
+        app_label='appearance', model_name='CurrentTheme'
+    )
+    try:
+        currentFont = CurrentTheme.objects.first().theme.font
+    except:
+        return ''
+    
+    return mark_safe(currentFont)
 
 @register.simple_tag
 def appearance_icon_render(icon, enable_shadow=False):
