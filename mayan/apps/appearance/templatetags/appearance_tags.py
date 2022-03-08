@@ -120,3 +120,18 @@ def appearance_object_list_count(object_list):
         return object_list.count()
     except TypeError:
         return len(object_list)
+
+@register.simple_tag
+def logo_get_logo():
+    html = ''
+    Asset = apps.get_model(
+        app_label='converter', model_name='Asset'
+    )
+    
+    try:
+        url = Asset.objects.get(label='logo').get_api_image_url()
+        html = f"""<img class="img-fluid " src="{url}" style="max-width: 200%; max-height: 200%; margin-top: -10px;" alt="log">"""
+    except:
+        html = 'CS EDMS'
+    
+    return mark_safe(html)

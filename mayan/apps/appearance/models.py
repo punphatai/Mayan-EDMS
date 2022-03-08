@@ -75,6 +75,7 @@ class Theme(ExtraDataModelMixin, models.Model):
         help_text=_('RGB color values for text in drop down menu.'),
         verbose_name=_('Drop down menu text')
     )
+
     stylesheet = models.TextField(
         blank=True, help_text=_(
             'The CSS stylesheet to change the appearance of the different '
@@ -121,7 +122,8 @@ class Theme(ExtraDataModelMixin, models.Model):
         dd_menu = self.dd_menu
         logo = self.logo
         font = self.font
-        css = f"""
+        
+        css_style = f"""
         .navbar.navbar-default.navbar-fixed-top, .panel-primary .panel-heading{{
             background: {bg_Main_Menu};
         }}
@@ -198,7 +200,7 @@ class Theme(ExtraDataModelMixin, models.Model):
         body, .well.center-block tr td,.pull-right.btn-group.open ul, .form-control, .navbar.navbar-default.navbar-fixed-top .dropdown-menu, .well div.panel-body,.panel-primary .panel-body, .well .panel-secondary > .panel-heading,#sidebar ul.list-group > li a{{
             background: {bg_bd};  
         }}
-        .navbar.navbar-default.navbar-fixed-top .dropdown-menu li a:hover{{
+        .navbar.navbar-default.navbar-fixed-top .dropdown-menu li a:hover,#sidebar ul.list-group > li a:hover{{
             color: {bg_bd};
         }}
         .well p.help-block{{
@@ -226,7 +228,7 @@ class Theme(ExtraDataModelMixin, models.Model):
             font-family: '{font}', sans-serif !important;
         }}
         """
-        self.stylesheet = css
+        self.stylesheet = css_style
         # self.stylesheet = bleach.clean(
         #     text=self.stylesheet, tags=('style',)
         # )

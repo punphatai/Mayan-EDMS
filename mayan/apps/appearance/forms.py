@@ -36,3 +36,6 @@ class UserThemeSettingForm_view(DetailForm):
     class Meta:
         fields = ('theme',)
         model = UserThemeSetting
+
+
+
