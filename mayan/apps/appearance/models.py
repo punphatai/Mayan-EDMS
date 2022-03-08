@@ -219,11 +219,6 @@ class Theme(ExtraDataModelMixin, models.Model):
             color: {dd_menu};
         }}
 
-        img.web-logo{{
-            background-image: url("{logo}");
-            background-size: 150px;
-            background-repeat: no-repeat;
-        }}
         *{{
             font-family: '{font}', sans-serif !important;
         }}

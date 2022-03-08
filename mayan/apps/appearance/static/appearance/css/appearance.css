@@ -596,3 +596,103 @@ a i {
     padding-left: 0px;
     padding-right: 0px;
 }
+
+/* Default */
+.navbar.navbar-default.navbar-fixed-top, .panel-primary .panel-heading{
+    background: rgba(0, 101, 179);
+}
+#menu-main {
+    background-color: rgba(0, 101, 179);
+}
+#accordion-sidebar .panel-heading {
+    background-color: rgba(0, 101, 179);
+}
+#accordion-sidebar  .panel  div  .panel-body{
+    background-color: rgba(0, 101, 179);
+    transition: .1s ease;
+}
+.navbar.navbar-default.navbar-fixed-top .dropdown-menu li a:hover{
+    background: rgba(0, 101, 179);
+}
+.btn-block{
+    background-color: rgba(0, 101, 179);
+}
+.navbar.navbar-default.navbar-fixed-top .dropdown-menu li a:hover{
+    background: rgba(0, 101, 179);
+}
+.well .panel-heading, .well .svg, .well div > i svg{
+    color: rgba(0, 101, 179);
+}
+.panel-primary .panel-body{
+    color: rgba(0, 101, 179);
+}
+.btn-primary{
+    background: rgba(0, 101, 179);
+    border: 1px solid rgba(0, 101, 179);
+}
+.well .panel-primary .panel-heading{
+    background: rgba(0, 101, 179);
+}
+.nav.navbar-nav.navbar-right li.dropdown.open a[aria-expanded="true"] {
+    background: rgb(0, 66, 117);
+}
+#accordion-sidebar  .panel  div  .panel-body  ul  li:hover {
+    background-color: rgb(0, 66, 117);
+    transition: .1s ease;
+}
+#accordion-sidebar a[aria-expanded="true"]{
+    background-color: rgb(0, 66, 117);
+}
+#accordion-sidebar  .panel  div  .panel-body  ul  li.active {
+    background: rgb(0, 66, 117);
+}
+#accordion-sidebar  .panel  div  .panel-body  ul  li:active {
+    background: rgb(0, 66, 117);
+}
+.btn-block:hover, .btn-block:focus{
+    background-color: rgb(0, 66, 117);
+}
+#accordion-sidebar .panel-heading:hover {
+    background-color: rgb(0, 66, 117);
+    transition: .1s ease;
+}
+.input-group-btn a.btn-primary{
+    background: rgb(0, 66, 117);
+}
+#sidebar ul.list-group > li a:hover{
+    background: rgb(0, 66, 117);
+}
+.well, .well div.panel-footer{
+    background: rgb(189,189,189);
+}
+.btn-default:not(.btn-danger){
+    background: rgb(107,107,107);
+}
+h3#content-title,h4, p small, p.small, .well label:not(.btn), .well td:not(.last), .well li::marker,li,th,.form-group{
+    color: {tx_main};
+}
+body, .well.center-block tr td,.pull-right.btn-group.open ul, .form-control, .navbar.navbar-default.navbar-fixed-top .dropdown-menu, .well div.panel-body,.panel-primary .panel-body, .well .panel-secondary > .panel-heading,#sidebar ul.list-group > li a{
+    background: rgb(255, 255, 255);  
+}
+.navbar.navbar-default.navbar-fixed-top .dropdown-menu li a:hover,#sidebar ul.list-group > li a:hover{
+    color: rgb(255, 255, 255);
+}
+.well p.help-block{
+    color: rgb(255, 255, 255);
+}
+.well a:not(.btn), .navbar.navbar-default.navbar-fixed-top #navbar > ul > li > a:hover, .navbar.navbar-default.navbar-fixed-top #navbar > ul > li.open > a[aria-expanded="true"]{
+    color: rgb(3, 179, 0);
+}
+.navbar.navbar-default.navbar-fixed-top #navbar > ul > li > a,.navbar.navbar-default.navbar-fixed-top #navbar > li > a,#accordion-sidebar  .panel  div  .panel-body  ul  li a, #accordion-sidebar  .panel-title, .btn,.well .panel-primary .panel-heading span{
+    color: rgb(255, 255, 255);
+}
+.well .panel-primary .panel-heading span{
+    color: rgb(255, 255, 255) !important;
+}
+#sidebar ul.list-group > li.dropdown-header, #sidebar ul.list-group > li a,.navbar.navbar-default.navbar-fixed-top .dropdown-menu li a{
+    color: rgb(0, 0, 0);
+}
+
+*{
+    font-family: '{font}', sans-serif !important;
+}

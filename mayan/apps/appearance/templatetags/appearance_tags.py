@@ -97,6 +97,7 @@ def appearance_get_user_theme_stylesheet(user):
 
     # return ''
 
+#sent font variable to html menu topbar.html
 @register.simple_tag
 def get_fonts():
     CurrentTheme = apps.get_model(
@@ -121,17 +122,17 @@ def appearance_object_list_count(object_list):
     except TypeError:
         return len(object_list)
 
+#sent logo variable to menu topbar.html
 @register.simple_tag
-def logo_get_logo():
-    html = ''
-    Asset = apps.get_model(
-        app_label='converter', model_name='Asset'
+def get_logo():
+    CurrentTheme = apps.get_model(
+        app_label='appearance', model_name='CurrentTheme'
     )
     
     try:
-        url = Asset.objects.get(label='logo').get_api_image_url()
-        html = f"""<img class="img-fluid " src="{url}" style="max-width: 200%; max-height: 200%; margin-top: -10px;" alt="log">"""
+        logo = CurrentTheme.objects.first().theme.logo
+        currentLogo = f"""<img src="{logo}" class="web-logo" style="max-width: 200%; max-height: 200%; margin-top: -10px;" alt="logo_coc">"""
     except:
-        html = 'CS EDMS'
+        currentLogo = 'CoC KKU'
     
-    return mark_safe(html)
+    return mark_safe(currentLogo)
