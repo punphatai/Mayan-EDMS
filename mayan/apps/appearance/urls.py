@@ -4,7 +4,7 @@ from mayan.apps.views.generics import SimpleView
 
 from .views import (
     CurrentUserThemeSettingsDetailsView, CurrentUserThemeSettingsEditView,
-    ThemeCreateView, ThemeDeleteView, ThemeEditView, ThemeListView ,CurrentUserThemeView #Import function CurrentUserThemeView
+    ThemeCreateView, ThemeDeleteView, ThemeEditView, ThemeListView , ThemeImportView,CurrentUserThemeView #Import function CurrentUserThemeView and ThemeImportView
 )
 
 
@@ -34,6 +34,11 @@ urlpatterns_themes = [
     url(
         regex=r'^themes/create/$', name='theme_create',
         view=ThemeCreateView.as_view()
+    ),
+    #pattern import_theme
+    url(
+        regex=r'^themes/import/$', name='theme_import',
+        view=ThemeImportView.as_view()
     ),
     url(
         regex=r'^themes/(?P<theme_id>\d+)/delete/$',

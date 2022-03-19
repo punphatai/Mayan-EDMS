@@ -17,7 +17,11 @@ class ThemeForm(forms.ModelForm):
                 }
             ),
         }
-
+# add new theme import form
+class ThemeImportForm(forms.ModelForm):
+    class Meta:
+        fields = ('label',)
+        model = Theme
 
 class UserThemeSettingForm(forms.ModelForm):
     class Meta:

@@ -8,7 +8,7 @@ from .icons import (
     icon_theme_delete, icon_theme_edit, icon_theme_list, icon_theme_setup
 )
 from .permissions import (
-    permission_theme_create, permission_theme_delete, permission_theme_edit,
+    permission_theme_create, permission_theme_delete, permission_theme_edit, permission_theme_import
 )
 
 link_current_user_theme_settings_details = Link(
@@ -26,6 +26,12 @@ link_theme_create = Link(
     icon=icon_theme_create, permissions=(permission_theme_create,),
     text=_('Create new logo and theme'), view='appearance:theme_create'
 )
+# new import link
+link_theme_import = Link(
+    icon=icon_theme_create, permissions=(permission_theme_import,),
+    text=_('Import new logo and theme'), view='appearance:theme_import'  
+)
+
 link_theme_delete = Link(
     args='object.pk', icon=icon_theme_delete,
     permissions=(permission_theme_delete,), tags='dangerous',

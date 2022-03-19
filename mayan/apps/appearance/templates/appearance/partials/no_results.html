@@ -30,6 +30,17 @@
             {% endwith %}
         </div>
     {% endif %}
+        <br>
+    <!-- add Import logo and theme button  -->
+    {% if no_results_second_link %}
+        <div>
+            {% with no_results_second_link as link %}
+            {% with 'btn btn-primary btn-sm' as link_classes %}
+            {% include 'navigation/generic_subnavigation.html' %}
+            {% endwith %}
+            {% endwith %}
+        </div>
+    {% endif %}
 
     {% if no_results_secondary_links %}
         <div class="btn-list container-btn-secondary">

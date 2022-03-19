@@ -16,7 +16,7 @@ from mayan.apps.navigation.classes import SourceColumn
 
 from .events import event_theme_edited
 from .links import (
-    link_current_user_theme_settings_edit, link_theme_create,
+    link_current_user_theme_settings_edit, link_theme_create,link_theme_import,#import link_theme_import
     link_theme_delete, link_theme_edit, link_theme_list, link_theme_setup
 )
 from .handlers import handler_user_theme_setting_create
@@ -99,7 +99,7 @@ class AppearanceApp(MayanAppConfig):
         )
 
         menu_secondary.bind_links(
-            links=(link_theme_list, link_theme_create),
+            links=(link_theme_list, link_theme_create,link_theme_import),
             sources=(
                 Theme, 'appearance:theme_list', 'appearance:theme_create'
             )

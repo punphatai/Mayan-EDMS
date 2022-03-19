@@ -7,6 +7,11 @@ namespace = PermissionNamespace(label=_('Appearance'), name='appearance')
 permission_theme_create = namespace.add_permission(
     label=_('Create new themes'), name='theme_create'
 )
+#import new theme
+permission_theme_import = namespace.add_permission(
+    label=_('Import new themes'), name='theme_import'
+)
+
 permission_theme_delete = namespace.add_permission(
     label=_('Delete themes'), name='theme_delete'
 )

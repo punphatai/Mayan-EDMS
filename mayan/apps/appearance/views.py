@@ -7,9 +7,9 @@ from mayan.apps.views.generics import (
     SingleObjectListView, SimpleView
 )
 
-from .forms import ThemeForm, UserThemeSettingForm, UserThemeSettingForm_view
+from .forms import ThemeForm, UserThemeSettingForm, UserThemeSettingForm_view, ThemeImportForm
 from .icons import icon_theme_setup
-from .links import link_theme_create
+from .links import link_theme_create, link_theme_import
 from .models import Theme
 from .permissions import (
     permission_theme_create, permission_theme_delete, permission_theme_edit,
@@ -56,7 +56,7 @@ class CurrentUserThemeSettingsEditView(SingleObjectEditView):
 
 
 class ThemeCreateView(SingleObjectCreateView):
-    extra_context = {'title': _('Create new theme')}
+    extra_context = {'title': _('Create new logo and themes')}
     form_class = ThemeForm
     post_action_redirect = reverse_lazy(
         viewname='appearance:theme_list'
@@ -66,6 +66,16 @@ class ThemeCreateView(SingleObjectCreateView):
     def get_instance_extra_data(self):
         return {'_event_actor': self.request.user}
 
+class ThemeImportView(SingleObjectCreateView):
+    extra_context = {'title': _('Import new logo and themes')}
+    form_class = ThemeImportForm
+    post_action_redirect = reverse_lazy(
+        viewname='appearance:theme_list'
+    )
+    view_permission = permission_theme_create
+
+    def get_instance_extra_data(self):
+        return {'_event_actor': self.request.user}
 
 class ThemeDeleteView(SingleObjectDeleteView):
     model = Theme
@@ -113,12 +123,15 @@ class ThemeListView(SingleObjectListView):
             'no_results_main_link': link_theme_create.resolve(
                 context=RequestContext(request=self.request)
             ),
+            'no_results_second_link': link_theme_import.resolve(
+                context=RequestContext(request=self.request)
+            ),
             'no_results_text': _(
                 'Themes allow changing the visual appearance without '
                 'requiring code changes.'
             ),
             'no_results_title': _(
-                'There are no themes'
+                'There are no logo and themes'
             ),
             'title': _('Logo and Themes'),
         }
