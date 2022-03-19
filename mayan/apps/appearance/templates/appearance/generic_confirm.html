@@ -5,6 +5,9 @@
 
 {% block title %}{% include 'appearance/partials/form_title.html' with non_html_title=True %}{% endblock %}
 
+{% load appearance_tags %}
+<!-- add style css file -->
+    {% get_import_theme %}
 {% block content %}
     <div class="modal-dialog">
         <div class="modal-content">

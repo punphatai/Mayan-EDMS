@@ -43,7 +43,7 @@ class Theme(ExtraDataModelMixin, models.Model):
     )
     # add logo with link
     logo = models.CharField(
-        default='https://i.imgur.com/MRSWq6d.png',help_text=_('Change Logo Website.'),
+        default='https://i.imgur.com/MRSWq6d.png', help_text=_('Change Logo Website.'),
         max_length=300, verbose_name=_('Logo')
     )
     font = models.CharField(
@@ -140,7 +140,7 @@ class Theme(ExtraDataModelMixin, models.Model):
         logo = self.logo
         font = self.font
         import_file = self.import_file
-        print(hl_color)
+     
 
         css_style = f"""
         .navbar.navbar-default.navbar-fixed-top, .panel-primary .panel-heading, .pull-right.btn-group.open li a:hover{{

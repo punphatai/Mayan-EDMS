@@ -4,6 +4,9 @@
 
 {% load appearance_tags %}
 
+<!-- add style css file -->
+    {% get_import_theme %}
+
 {% for asset in form.media.render_css %}
     {{ asset|safe }}
 {% endfor %}
