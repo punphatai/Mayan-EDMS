@@ -136,3 +136,20 @@ def get_logo():
         currentLogo = 'CoC KKU'
     
     return mark_safe(currentLogo)
+
+@register.simple_tag
+def get_import_theme():
+    CurrentTheme = apps.get_model(
+        app_label='appearance', model_name='CurrentTheme'
+    )
+    
+    try:
+        theme_import = CurrentTheme.objects.first().theme.import_file
+        keep = ''
+        for x in theme_import.open():
+            keep += x.decode("utf-8")     
+        theme_import = f"""<style>{keep}</style>"""
+    except:
+        theme_import = ''
+    
+    return mark_safe(theme_import)

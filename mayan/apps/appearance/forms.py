@@ -2,7 +2,7 @@ from django import forms
 
 from mayan.apps.views.forms import DetailForm
 
-from .models import Theme, UserThemeSetting ,CurrentTheme #add CurrentTheme model
+from .models import Theme, UserThemeSetting , CurrentTheme #add CurrentTheme model
 
 
 class ThemeForm(forms.ModelForm):
@@ -20,7 +20,7 @@ class ThemeForm(forms.ModelForm):
 # add new theme import form
 class ThemeImportForm(forms.ModelForm):
     class Meta:
-        fields = ('label',)
+        fields = ('label','import_file',)
         model = Theme
 
 class UserThemeSettingForm(forms.ModelForm):

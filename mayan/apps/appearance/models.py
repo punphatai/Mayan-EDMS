@@ -1,5 +1,12 @@
 import bleach
 
+###
+from mayan.apps.storage.classes import DefinedStorageLazy
+from .literals import STORAGE_NAME_ASSETS, STORAGE_NAME_ASSETS_CACHE
+from django.core.validators import FileExtensionValidator
+import uuid
+from django.apps import apps
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -18,20 +25,30 @@ from colorful.fields import RGBColorField
 #import all font list of google font
 from .all_list_font import font_list
 
+###
+def upload_to(instance, filename):
+    return 'converter-asset-{}'.format(uuid.uuid4().hex)
+
 class Theme(ExtraDataModelMixin, models.Model):
 
     label = models.CharField(
         db_index=True, help_text=_('A short text describing the theme.'),
         max_length=128, unique=True, verbose_name=_('Label')
     )
+    ##
+    import_file = models.FileField(
+        verbose_name=_('CSS File'),
+        default=None,
+        validators=[FileExtensionValidator( ['css'] )],
+    )
     # add logo with link
     logo = models.CharField(
-        db_index=True, help_text=_('Change Logo Website.'),
-        max_length=300, unique=True, verbose_name=_('Logo')
+        default='https://i.imgur.com/MRSWq6d.png',help_text=_('Change Logo Website.'),
+        max_length=300, verbose_name=_('Logo')
     )
     font = models.CharField(
-        db_index=True, help_text=_('Change Font'),
-        max_length=128, unique=True, verbose_name=_('Font'),
+        help_text=_('Change Font'),
+        max_length=128, verbose_name=_('Font'),
         choices = font_list
     )
     #add color code to model
@@ -122,9 +139,11 @@ class Theme(ExtraDataModelMixin, models.Model):
         dd_menu = self.dd_menu
         logo = self.logo
         font = self.font
-        
+        import_file = self.import_file
+        print(hl_color)
+
         css_style = f"""
-        .navbar.navbar-default.navbar-fixed-top, .panel-primary .panel-heading{{
+        .navbar.navbar-default.navbar-fixed-top, .panel-primary .panel-heading, .pull-right.btn-group.open li a:hover{{
             background: {bg_Main_Menu};
         }}
         #menu-main {{
@@ -200,7 +219,7 @@ class Theme(ExtraDataModelMixin, models.Model):
         body, .well.center-block tr td,.pull-right.btn-group.open ul, .form-control, .navbar.navbar-default.navbar-fixed-top .dropdown-menu, .well div.panel-body,.panel-primary .panel-body, .well .panel-secondary > .panel-heading,#sidebar ul.list-group > li a{{
             background: {bg_bd};  
         }}
-        .navbar.navbar-default.navbar-fixed-top .dropdown-menu li a:hover,#sidebar ul.list-group > li a:hover{{
+        .navbar.navbar-default.navbar-fixed-top .dropdown-menu li a:hover,#sidebar ul.list-group > li a:hover, .pull-right.btn-group.open strong:hover, .pull-right.btn-group.open li a:hover{{
             color: {bg_bd};
         }}
         .well p.help-block{{
@@ -218,18 +237,20 @@ class Theme(ExtraDataModelMixin, models.Model):
         #sidebar ul.list-group > li.dropdown-header, #sidebar ul.list-group > li a,.navbar.navbar-default.navbar-fixed-top .dropdown-menu li a{{
             color: {dd_menu};
         }}
-
+        .pull-right.btn-group.open strong, .pull-right.btn-group.open li a{{
+            color: {dd_menu};
+        }}
         *{{
             font-family: '{font}', sans-serif !important;
         }}
+
+
         """
         self.stylesheet = css_style
         # self.stylesheet = bleach.clean(
         #     text=self.stylesheet, tags=('style',)
         # )
         super().save(*args, **kwargs)
-
-
 class UserThemeSetting(models.Model):
     user = models.OneToOneField(
         on_delete=models.CASCADE, related_name='theme_settings',
