@@ -3,7 +3,9 @@ import bleach
 ###
 from mayan.apps.storage.classes import DefinedStorageLazy
 from .literals import STORAGE_NAME_ASSETS, STORAGE_NAME_ASSETS_CACHE
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator,MinLengthValidator
+from django.core.exceptions import ValidationError
+
 import uuid
 from django.apps import apps
 
@@ -29,17 +31,23 @@ from .all_list_font import font_list
 def upload_to(instance, filename):
     return 'converter-asset-{}'.format(uuid.uuid4().hex)
 
+def validate_empty(self):
+    if value == "":
+        raise ValidationError("Please fill out this field.")
+
+
 class Theme(ExtraDataModelMixin, models.Model):
 
     label = models.CharField(
         db_index=True, help_text=_('A short text describing the theme.'),
-        max_length=128, unique=True, verbose_name=_('Label')
+        max_length=128, unique=True, verbose_name=_('Label'),blank=True,
+
     )
     ##
     import_file = models.FileField(
         verbose_name=_('CSS File'),
         default=None,
-        validators=[FileExtensionValidator( ['css'] )],
+        validators=[FileExtensionValidator( ['css'] )],blank=True,
     )
     # add logo with link
     logo = models.CharField(
@@ -99,6 +107,11 @@ class Theme(ExtraDataModelMixin, models.Model):
             'user interface elements.'
         ), verbose_name=_('Stylesheet')
     )
+    def clean(self):
+        if self.label == '':
+            raise ValidationError('Please fill out this field.')
+        if len(str(self.import_file)) == 0:
+            raise ValidationError('Please select a file.')
 
     class Meta:
         ordering = ('label',)
@@ -140,6 +153,7 @@ class Theme(ExtraDataModelMixin, models.Model):
         logo = self.logo
         font = self.font
         import_file = self.import_file
+        
      
 
         css_style = f"""
