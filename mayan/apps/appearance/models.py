@@ -110,7 +110,7 @@ class Theme(ExtraDataModelMixin, models.Model):
     def clean(self):
         if self.label == '':
             raise ValidationError('Please fill out this field.')
-        if len(str(self.import_file)) == 0:
+        if len(str(self.import_file)) == 0 and len(str(self.bg_Main_Menu)) == 0:
             raise ValidationError('Please select a file.')
 
     class Meta:
